@@ -1,6 +1,17 @@
 pub fn censor_vowels(s: &mut String) {
-    let _ = s;
-    todo!("implement censor_vowels")
+    // let _ = s;
+    // todo!("implement censor_vowels")
+
+    let bytes = unsafe { s.as_bytes_mut() };
+    for byte in bytes.iter_mut() {
+        match byte {
+            b'a' | b'A' | b'e' | b'E' | b'i' |
+            b'I' | b'o' | b'O' | b'u' | b'U' => {
+                *byte = b'*';
+            }
+            _ => {}
+        }
+    }
 }
 
 #[cfg(test)]

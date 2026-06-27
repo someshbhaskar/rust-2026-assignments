@@ -1,8 +1,30 @@
 pub const ALPHABET: &str = "abcdefghijklmnopqrstuvwxyz";
 
 pub fn caesar(input: &str, shift: i32) -> String {
-    let _ = (input, shift);
-    todo!("implement caesar")
+    // let _ = (input, shift); 
+    // todo!("implement caesar")
+
+    let len = ALPHABET.len() as i32;
+    let effective_shift = ((shift % len) + len) % len;
+
+    input
+        .chars()
+        .map(|c| {
+            if c.is_ascii_lowercase() {
+                let offset = (c as u8 - b'a') as i32;
+                let new_offset = (offset + effective_shift) % len;
+                ALPHABET.as_bytes()[new_offset as usize] as char
+            } else if c.is_ascii_uppercase() {
+                let offset = (c as u8 - b'A') as i32;
+                let new_offset = (offset + effective_shift) % len;
+                // Fetch the lowercase shifted char from ALPHABET and convert it back to uppercase
+                (ALPHABET.as_bytes()[new_offset as usize] as char).to_ascii_uppercase()
+            } else {
+                // Return whitespace, digits, and punctuation exactly as they are
+                c
+            }
+        })
+        .collect()
 }
 
 #[cfg(test)]

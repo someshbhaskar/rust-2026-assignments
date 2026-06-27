@@ -1,6 +1,20 @@
 pub fn longest_word(sentence: &str) -> Option<&str> {
-    let _ = sentence;
-    todo!("implement longest_word")
+    // let _ = sentence;
+    // todo!("implement longest_word")
+
+    let mut words = sentence.split_whitespace(); //Splitting sentence into iterator of words
+    let mut longest = match words.next() {
+        Some(w) => w,
+        None => return None,
+    };
+
+    for word in words.into_iter() {
+        if word.len() > longest.len() {
+            longest = word;
+        }
+    }
+
+    return Some(longest);
 }
 
 #[cfg(test)]

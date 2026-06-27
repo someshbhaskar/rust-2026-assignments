@@ -1,6 +1,17 @@
 pub fn split_and_double(xs: &mut Vec<i32>, mid: usize) -> (&mut [i32], &mut [i32]) {
-    let _ = (xs, mid);
-    todo!("implement split_and_double")
+    // let _ = (xs, mid);
+    // todo!("implement split_and_double")
+
+    let (left, right) = xs.split_at_mut(mid);
+
+    for val in left.iter_mut() {
+        *val *= 2;
+    }
+    for val in right.iter_mut() {
+        *val *= 2;
+    }
+
+    (left, right)
 }
 
 #[cfg(test)]
